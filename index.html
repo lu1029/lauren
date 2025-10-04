@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d0b1a;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+      background: linear-gradient(90deg, #ff0077, #ff4ddb);
+      color: white;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 25px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Carrossel ocupa quase toda a altura */
+    .carousel {
+      width: 420px;
+      height: 90vh;  /* >>> Ajuste principal: ocupa quase a tela toda pra baixo <<< */
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0px 0px 20px rgba(255, 0, 150, 0.5);
+      position: relative;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: #ff0077;
+    }
+
+    /* Caixa de mensagem */
+    .mensagem {
+      max-width: 280px;
+      background: rgba(255, 0, 150, 0.15);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 15px rgba(255, 0, 150, 0.5);
+    }
+
+    /* Botões */
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #ff0077, #ff4ddb);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0px 0px 10px rgba(255, 0, 150, 0.5);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .carousel {
+        width: 90%;
+        height: 70vh;
+      }
+      .mensagem {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Te amo, meu amor ❤️ Que você conquiste tudo o que deseja ✨
+  </header>
+
+  <div class="container">
+    <!-- Carrossel -->
+    <div class="carousel">
+      <img id="carousel-img" src="foto1.jpg" alt="Foto 1">
+    </div>
+
+    <!-- Texto aniversário -->
+    <div class="mensagem">
+      <p>🎂 Feliz aniversário minha princesa 💝</p>
+      <p>💕 Te amo muito, aproveita cada momento do teu dia ✨</p>
+      <p>🌹 Saiba que estarei sempre aqui para você 💕</p>
+      <p>😍 Contigo sou mais feliz, minha linda ✨</p>
+      <p>💖 A cada dia meu amor por ti cresce ainda mais 🌸</p>
+      <p>🌟 Que a tua vida seja cheia de luz e conquistas 💫</p>
+      <p>🎁 Estar contigo é meu maior presente 💝</p>
+    </div>
+  </div>
+
+  <!-- Botões -->
+  <div class="buttons">
+    <button onclick="toggleMusic()">▶️ Play / ⏸️ Pause Música</button>
+    <button onclick="abrirVideo()">🎥 Surpresa</button>
+  </div>
+
+  <!-- Player de música oculto -->
+  <audio id="bg-music" src="Dizeres.mp3"></audio>
+
+  <!-- Carrossel bolinhas -->
+  <div class="dots">
+    <span class="dot active" onclick="showSlide(0)"></span>
+    <span class="dot" onclick="showSlide(1)"></span>
+    <span class="dot" onclick="showSlide(2)"></span>
+  </div>
+
+  <script>
+    // Carrossel de imagens
+    const images = ["foto1.jpg", "foto2.jpg", "foto3.jpg"];
+    let currentIndex = 0;
+    const imgElement = document.getElementById("carousel-img");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(index) {
+      currentIndex = index;
+      imgElement.src = images[currentIndex];
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[currentIndex].classList.add("active");
+    }
+
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showSlide(currentIndex);
+    }, 4000);
+
+    // Música
+    const music = document.getElementById("bg-music");
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Botão surpresa
+    function abrirVideo() {
+      window.open("pedido-namoro.mp4", "_blank");
+    }
+  </script>
+</body>
+</html>
