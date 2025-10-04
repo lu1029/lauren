@@ -223,37 +223,56 @@
     // Surpresa
     function abrirVideo() {
       window.open("pedido-namoro.mp4", "_blank");
-    }
+  
+  <!-- ===== CONTADOR ===== -->
+    <section class="counter">
+      <h2>Juntos desde <span id="startDateDisplay">16/08/2025</span></h2>
+      <div class="time-boxes">
+        <div class="box"><div class="num" id="years">0</div><div class="label">Anos</div></div>
+        <div class="box"><div class="num" id="months">0</div><div class="label">Meses</div></div>
+        <div class="box"><div class="num" id="days">0</div><div class="label">Dias</div></div>
+        <div class="box"><div class="num" id="hours">0</div><div class="label">Horas</div></div>
+        <div class="box"><div class="num" id="minutes">0</div><div class="label">Min</div></div>
+        <div class="box"><div class="num" id="seconds">0</div><div class="label">Seg</div></div>
+      </div>
+    </section>
+  </div>
 
-      // ===== Contador detalhado =====
+  <script>
     const startDate = new Date("2025-08-16T00:00:00");
+    document.getElementById('startDateDisplay').textContent = 
+      startDate.toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
 
-    function atualizarContador() {
-      const agora = new Date();
+    // ===== CONTADOR =====
+    function updateCounter(){
+      const now = new Date();
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      let hours = now.getHours() - startDate.getHours();
+      let minutes = now.getMinutes() - startDate.getMinutes();
+      let seconds = now.getSeconds() - startDate.getSeconds();
 
-      let anos = agora.getFullYear() - startDate.getFullYear();
-      let meses = agora.getMonth() - startDate.getMonth();
-      let dias = agora.getDate() - startDate.getDate();
-      let horas = agora.getHours() - startDate.getHours();
-      let minutos = agora.getMinutes() - startDate.getMinutes();
-      let segundos = agora.getSeconds() - startDate.getSeconds();
-
-      if (segundos < 0) { segundos += 60; minutos--; }
-      if (minutos < 0) { minutos += 60; horas--; }
-      if (horas < 0) { horas += 24; dias--; }
-      if (dias < 0) {
-        meses--;
-        let ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
-        dias += ultimoMes;
+      if(seconds<0){seconds+=60;minutes--;}
+      if(minutes<0){minutes+=60;hours--;}
+      if(hours<0){hours+=24;days--;}
+      if(days<0){
+        let prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days+=prevMonthDays;months--;
       }
-      if (meses < 0) { meses += 12; anos--; }
+      if(months<0){months+=12;years--;}
 
-      document.getElementById("contador").innerText =
-        `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s juntos 💖`;
+      document.getElementById("years").textContent = years;
+      document.getElementById("months").textContent = months;
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
     }
+    updateCounter();
+    setInterval(updateCounter,1000);
 
-    setInterval(atualizarContador, 1000);
-    atualizarContador();
+      
   </script>
 </body>
 </html>
