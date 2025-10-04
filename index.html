@@ -36,10 +36,9 @@
       flex-wrap: wrap;
     }
 
-    /* Carrossel ocupa quase toda a altura */
     .carousel {
       width: 420px;
-      height: 90vh;  /* >>> Ajuste principal: ocupa quase a tela toda pra baixo <<< */
+      height: 90vh;
       overflow: hidden;
       border-radius: 15px;
       box-shadow: 0px 0px 20px rgba(255, 0, 150, 0.5);
@@ -72,7 +71,6 @@
       background-color: #ff0077;
     }
 
-    /* Caixa de mensagem */
     .mensagem {
       max-width: 280px;
       background: rgba(255, 0, 150, 0.15);
@@ -81,7 +79,6 @@
       box-shadow: 0px 0px 15px rgba(255, 0, 150, 0.5);
     }
 
-    /* Botões */
     .buttons {
       margin-top: 20px;
       display: flex;
@@ -106,7 +103,33 @@
       transform: scale(1.05);
     }
 
-    /* Responsivo */
+    /* Contador */
+    .contador {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .contador h2 {
+      margin-bottom: 15px;
+      color: #ff4ddb;
+    }
+
+    .contador-box {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contador-item {
+      background: rgba(255, 0, 150, 0.15);
+      padding: 15px 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0px 0px 10px rgba(255, 0, 150, 0.5);
+    }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -128,12 +151,10 @@
   </header>
 
   <div class="container">
-    <!-- Carrossel -->
     <div class="carousel">
       <img id="carousel-img" src="foto1.jpg" alt="Foto 1">
     </div>
 
-    <!-- Texto aniversário -->
     <div class="mensagem">
       <p>🎂 Feliz aniversário minha princesa 💝</p>
       <p>💕 Te amo muito, aproveita cada momento do teu dia ✨</p>
@@ -145,24 +166,33 @@
     </div>
   </div>
 
-  <!-- Botões -->
   <div class="buttons">
     <button onclick="toggleMusic()">▶️ Play / ⏸️ Pause Música</button>
     <button onclick="abrirVideo()">🎥 Surpresa</button>
   </div>
 
-  <!-- Player de música oculto -->
-  <audio id="bg-music" src="Dizeres.mp3"></audio>
+  <audio id="bg-music" src="musica.mp3"></audio>
 
-  <!-- Carrossel bolinhas -->
   <div class="dots">
     <span class="dot active" onclick="showSlide(0)"></span>
     <span class="dot" onclick="showSlide(1)"></span>
     <span class="dot" onclick="showSlide(2)"></span>
   </div>
 
+  <!-- Contador -->
+  <div class="contador">
+    <h2>Juntos desde 16 de agosto de 2025 💕</h2>
+    <div class="contador-box">
+      <div class="contador-item" id="anos">0 Anos</div>
+      <div class="contador-item" id="meses">0 Meses</div>
+      <div class="contador-item" id="dias">0 Dias</div>
+      <div class="contador-item" id="horas">0 Horas</div>
+      <div class="contador-item" id="minutos">0 Min</div>
+    </div>
+  </div>
+
   <script>
-    // Carrossel de imagens
+    // Carrossel
     const images = ["foto1.jpg", "foto2.jpg", "foto3.jpg"];
     let currentIndex = 0;
     const imgElement = document.getElementById("carousel-img");
@@ -190,10 +220,32 @@
       }
     }
 
-    // Botão surpresa
+    // Surpresa
     function abrirVideo() {
       window.open("pedido-namoro.mp4", "_blank");
     }
+
+    // Contador
+    function atualizarContador() {
+      const inicio = new Date("2025-08-16T00:00:00");
+      const agora = new Date();
+      const diff = agora - inicio;
+
+      const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      const meses = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)) % 12;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
+      const horas = Math.floor(diff / (1000 * 60 * 60)) % 24;
+      const minutos = Math.floor(diff / (1000 * 60)) % 60;
+
+      document.getElementById("anos").textContent = anos + " Anos";
+      document.getElementById("meses").textContent = meses + " Meses";
+      document.getElementById("dias").textContent = dias + " Dias";
+      document.getElementById("horas").textContent = horas + " Horas";
+      document.getElementById("minutos").textContent = minutos + " Min";
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
   </script>
 </body>
 </html>
